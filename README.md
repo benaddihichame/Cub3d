@@ -1,135 +1,203 @@
-cub3D
-Description
-cub3D est un projet de l'école 42 qui consiste à créer un moteur de rendu 3D basé sur le raycasting, inspiré du célèbre jeu Wolfenstein 3D. Ce projet permet de découvrir les bases de la programmation graphique et de comprendre comment fonctionnait le rendu 3D dans les années 90.
-Objectifs du projet
+# cub3D - 3D Raycasting Engine 🎮
 
-Créer une vue en 3D première personne à l'intérieur d'un labyrinthe
-Implémenter l'algorithme de raycasting
-Gérer les textures sur les murs
-Gérer les événements clavier et souris
-Respecter la norme de 42
+A 3D raycasting game engine inspired by Wolfenstein 3D, built as part of the 42 School curriculum.
 
-Technologies utilisées
+## 📸 Screenshots
 
-Langage : C
-Bibliothèque graphique : MiniLibX
-Makefile pour la compilation
+<p align="center">
+  <img src="assets/screenshot.png" width="80%" alt="Vue du jeu avec textures colorées"/>
+</p>
 
-Fonctionnalités
-Fonctionnalités obligatoires
 
-✅ Affichage d'une vue 3D en temps réel
-✅ Gestion des textures différentes selon l'orientation du mur (Nord, Sud, Est, Ouest)
-✅ Couleurs différentes pour le sol et le plafond
-✅ Déplacement avec les touches W, A, S, D
-✅ Rotation de la vue avec les flèches gauche/droite
-✅ Fermeture propre de la fenêtre avec ESC ou le bouton de fermeture
-✅ Parsing d'un fichier de configuration .cub
 
-Fonctionnalités bonus (optionnelles)
+## 📋 Table of Contents
+- [About](#about)
+- [Demo](#demo)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Map Configuration](#map-configuration)
+- [Controls](#controls)
+- [Project Structure](#project-structure)
+- [Technical Details](#technical-details)
+- [Contributing](#contributing)
 
-Collisions avec les murs
-Minimap
-Portes qui s'ouvrent et se ferment
-Objets animés (sprites)
-Rotation de la vue avec la souris
+## 🎯 About
 
-Structure du fichier .cub
-Le fichier de configuration définit la carte et les paramètres du jeu :
-NO ./textures/north_wall.xpm
-SO ./textures/south_wall.xpm
-WE ./textures/west_wall.xpm
-EA ./textures/east_wall.xpm
+cub3D is a 3D raycasting engine that recreates the classic rendering technique used in 1990s games like Wolfenstein 3D and DOOM. This project demonstrates fundamental 3D graphics programming concepts and real-time rendering techniques.
 
-F 220,100,0
-C 225,30,0
+### Learning Objectives
+- 🎨 Understand raycasting algorithms and 3D projection
+- 🖥️ Master low-level graphics programming with MLX42
+- ⚡ Implement real-time rendering and game loops
+- 🎮 Handle user input and window management
+- 📁 Parse configuration files and validate input data
 
-111111111111111111111111
-100000000000000000000001
-101100000111000000001101
-100100000000000000000001
-111110111N00111000000001
-100000001000001000000001
-100000000000000000000001
-111111111111111111111111
-Légende
+## ✨ Features
 
-NO, SO, WE, EA : Chemins vers les textures des murs
-F : Couleur RGB du sol
-C : Couleur RGB du plafond
-1 : Mur
-0 : Espace vide
-N, S, E, W : Position et orientation de départ du joueur
+### Core Features
+- ✅ Real-time 3D first-person view rendering
+- ✅ Textured walls with orientation-specific textures (N/S/E/W)
+- ✅ Configurable floor and ceiling colors
+- ✅ Smooth player movement and collision detection
+- ✅ Camera rotation with keyboard controls
+- ✅ Map parsing from `.cub` configuration files
+- ✅ Proper memory management and error handling
 
-Installation
-bash# Cloner le repository
-git clone [votre-repo] cub3d
-cd cub3d
+### Technical Highlights
+- **Raycasting Algorithm**: Digital Differential Analysis (DDA)
+- **Texture Mapping**: Real-time texture application on walls
+- **Collision System**: Prevents walking through walls
+- **Performance**: Optimized for smooth 60 FPS gameplay
 
-# Compiler le projet
+### Build Instructions
+```bash
+# Clone the repository
+git clone https://github.com/benaddihichame/Cub3d.git
+cd Cub3d
+
+# Compile the project
 make
 
-# Compiler avec les bonus (si implémentés)
-make bonus
-Utilisation
-bash./cub3D maps/map.cub
-Contrôles
+# Clean build files (optional)
+make clean
 
-W/A/S/D : Se déplacer
-←/→ : Tourner la caméra
-ESC : Quitter le jeu
+# Remove all generated files (optional)
+make fclean
 
-Architecture du projet
+# Recompile everything (optional)
+make re
+```
+
+## 🎮 Usage
+
+```bash
+# Run the game with a map file
+./cub3d assets/maps/good/maze.cub
+
+# Try different maps
+./cub3d assets/maps/good/dungeon.cub
+./cub3d assets/maps/good/library.cub
+```
+
+## 🗺️ Map Configuration
+
+Maps are defined in `.cub` files with this structure:
+
+```
+NO ./assets/textures/north.png
+SO ./assets/textures/south.png
+WE ./assets/textures/west.png
+EA ./assets/textures/east.png
+
+F 164,169,20
+C 153,204,254
+
+1111111111111111111111111
+1000000000110000000000001
+1011000001110000000000001
+1001000000000000000000001
+111111111011000001110000000000001
+100000000011000001110111110111111
+11110111111111011100000010001
+11110111111111011101010000001
+11000000110101011100000010001
+10000000000000000000000000001
+10000000000000001101010010001
+11000001110101011111011110N0111
+11110111 1110101 101111010001
+11111111 1111111 111111111111
+```
+
+### Map Elements
+- **NO/SO/WE/EA**: Texture paths for North/South/West/East walls
+- **F**: Floor color (RGB: 0-255)
+- **C**: Ceiling color (RGB: 0-255)
+- **1**: Wall
+- **0**: Empty space
+- **N/S/E/W**: Player starting position and orientation
+
+## 🎮 Controls
+
+| Key | Action |
+|-----|--------|
+| `W` | Move forward |
+| `S` | Move backward |
+| `A` | Strafe left |
+| `D` | Strafe right |
+| `←` | Rotate camera left |
+| `→` | Rotate camera right |
+| `ESC` | Exit game |
+
+## 📁 Project Structure
+
+```
 cub3d/
-├── srcs/
-│   ├── main.c
-│   ├── parsing/
-│   │   ├── parser.c
-│   │   ├── map_validation.c
-│   │   └── texture_loader.c
-│   ├── rendering/
-│   │   ├── raycasting.c
-│   │   ├── draw.c
-│   │   └── textures.c
-│   ├── game/
-│   │   ├── player.c
-│   │   ├── movement.c
-│   │   └── events.c
-│   └── utils/
-│       ├── error.c
-│       ├── free.c
-│       └── utils.c
-├── includes/
-│   └── cub3d.h
-├── maps/
-│   ├── valid_map.cub
-│   └── test_maps/
-├── textures/
-│   ├── north.xpm
-│   ├── south.xpm
-│   ├── east.xpm
-│   └── west.xpm
-├── Makefile
+├── src/                    # Source files
+│   ├── main.c             # Program entry point
+│   ├── parsing.c          # Configuration file parsing
+│   ├── parsing_map.c      # Map validation
+│   ├── texture_parsing.c  # Texture handling
+│   ├── mlx.c             # Core raycasting engine
+│   ├── render.c          # Rendering pipeline
+│   ├── keys.c            # Input handling
+│   └── utils*.c          # Utility functions
+├── include/
+│   ├── cub3d.h           # Main header
+│   └── MLX42.h           # Graphics library
+├── assets/
+│   ├── maps/             # Example maps
+│   └── textures/         # Wall textures
+├── Makefile              # Build configuration
 └── README.md
-Concepts clés
-Raycasting
-Le raycasting est une technique de rendu 3D qui consiste à lancer des rayons depuis la position du joueur pour déterminer la distance aux murs et calculer leur hauteur à l'écran.
-DDA (Digital Differential Analysis)
-Algorithme utilisé pour parcourir la grille et détecter les intersections avec les murs.
-Projection
-Transformation des coordonnées du monde 3D vers l'écran 2D en utilisant une projection perspective.
-Gestion des erreurs
-Le programme doit gérer proprement les erreurs suivantes :
+```
 
-Fichier .cub invalide ou manquant
-Carte non fermée par des murs
-Textures manquantes ou invalides
-Couleurs RGB hors limites
-Plusieurs positions de départ
-Caractères invalides dans la carte
+## ⚙️ Technical Details
 
-Ressources utiles
+### Raycasting Algorithm
+The engine implements the DDA algorithm for efficient ray-grid traversal:
 
-Tutoriel Raycasting de Lodev
-Documentation MiniLibX
-Wolfenstein 3D Source Code
+1. **Ray Casting**: Cast rays for each screen column
+2. **Grid Traversal**: Step through map grid until wall collision
+3. **Distance Calculation**: Calculate perpendicular distance
+4. **Wall Projection**: Convert 3D coordinates to 2D screen space
+5. **Texture Mapping**: Apply textures based on wall orientation
+
+### Key Technologies
+- **Language**: C
+- **Graphics**: MLX42 (42's OpenGL wrapper)
+- **Build System**: Makefile
+- **Platform**: Linux/macOS
+
+### Performance Optimizations
+- Efficient ray-casting with DDA algorithm
+- Optimized texture mapping
+- Memory-conscious data structures
+- Real-time collision detection
+
+## 🧪 Error Handling
+
+The program validates input and handles various error conditions:
+
+- ❌ Invalid or missing `.cub` file
+- ❌ Map not properly enclosed by walls
+- ❌ Missing or corrupted texture files
+- ❌ Invalid RGB color values (must be 0-255)
+- ❌ Multiple or missing player start positions
+- ❌ Invalid characters in map data
+
+## 🤝 Contributing
+
+This project is part of the 42 School curriculum. While it's primarily educational, suggestions and improvements are welcome!
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📚 Resources
+
+- [Raycasting Tutorial by Lodev](https://lodev.org/cgtutor/raycasting.html)
+- [MLX42 Documentation](https://github.com/codam-coding-college/MLX42)
+- [Wolfenstein 3D Source Code](https://github.com/id-Software/wolf3d)
